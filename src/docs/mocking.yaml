@@ -1,0 +1,42 @@
+paths:
+  /api/mockingusers:
+    get:
+      summary: Generar 50 usuarios falsos con mocking
+      tags:
+        - Mocking
+      responses:
+        '200':
+          description: Usuarios generados exitosamente
+
+  /api/mockingpets:
+    get:
+      summary: Generar 50 mascotas falsas con mocking
+      tags:
+        - Mocking
+      responses:
+        '200':
+          description: Mascotas generadas exitosamente
+
+  /api/generateData:
+    post:
+      summary: Generar datos reales en la base según parámetros
+      tags:
+        - Mocking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                users:
+                  type: number
+                  description: Cantidad de usuarios a generar
+                pets:
+                  type: number
+                  description: Cantidad de mascotas a generar
+      responses:
+        '200':
+          description: Datos generados exitosamente
+        '400':
+          description: Error en los parámetros de entrada

@@ -1,0 +1,101 @@
+paths:
+  /api/adoptions:
+    get:
+      summary: Obtener todas las adopciones
+      tags:
+        - Adoptions
+      responses:
+        '200':
+          description: Lista de adopciones
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Adoption'
+
+    post:
+      summary: Crear una nueva adopción
+      tags:
+        - Adoptions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewAdoption'
+      responses:
+        '201':
+          description: Adopción creada correctamente
+        '400':
+          description: Error en la creación de la adopción
+
+  /api/adoptions/{aid}:
+    get:
+      summary: Obtener adopción por ID
+      tags:
+        - Adoptions
+      parameters:
+        - name: aid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Adopción encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Adoption'
+        '404':
+          description: Adopción no encontrada
+
+    delete:
+      summary: Eliminar una adopción
+      tags:
+        - Adoptions
+      parameters:
+        - name: aid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Adopción eliminada correctamente
+        '404':
+          description: Adopción no encontrada
+
+components:
+  schemas:
+    Adoption:
+      type: object
+      properties:
+        _id:
+          type: string
+        user:
+          type: string
+          description: ID del usuario adoptante
+        pet:
+          type: string
+          description: ID de la mascota adoptada
+        date:
+          type: string
+          format: date-time
+
+    NewAdoption:
+      type: object
+      required:
+        - user
+        - pet
+      properties:
+        user:
+          type: string
+        pet:
+          type: string

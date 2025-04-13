@@ -1,0 +1,97 @@
+paths:
+  /api/pets:
+    get:
+      summary: Obtener todas las mascotas
+      tags:
+        - Pets
+      responses:
+        '200':
+          description: Lista de mascotas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pet'
+
+    post:
+      summary: Crear una nueva mascota
+      tags:
+        - Pets
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewPet'
+      responses:
+        '201':
+          description: Mascota creada correctamente
+        '400':
+          description: Error al crear la mascota
+
+  /api/pets/{pid}:
+    get:
+      summary: Obtener mascota por ID
+      tags:
+        - Pets
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Mascota encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+        '404':
+          description: Mascota no encontrada
+
+    delete:
+      summary: Eliminar una mascota
+      tags:
+        - Pets
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Mascota eliminada correctamente
+        '404':
+          description: Mascota no encontrada
+
+components:
+  schemas:
+    Pet:
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        species:
+          type: string
+        age:
+          type: number
+        adopted:
+          type: boolean
+
+    NewPet:
+      type: object
+      required:
+        - name
+        - species
+      properties:
+        name:
+          type: string
+        species:
+          type: string
+        age:
+          type: number

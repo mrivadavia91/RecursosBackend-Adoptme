@@ -1,0 +1,75 @@
+paths:
+  /api/sessions/register:
+    post:
+      summary: Registro de nuevo usuario
+      tags:
+        - Sessions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        '201':
+          description: Usuario registrado exitosamente
+        '400':
+          description: Error en el registro
+
+  /api/sessions/login:
+    post:
+      summary: Inicio de sesión
+      tags:
+        - Sessions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Inicio de sesión exitoso
+        '401':
+          description: Credenciales inválidas
+
+  /api/sessions/logout:
+    get:
+      summary: Cerrar sesión
+      tags:
+        - Sessions
+      responses:
+        '200':
+          description: Sesión cerrada exitosamente
+
+components:
+  schemas:
+    RegisterRequest:
+      type: object
+      required:
+        - first_name
+        - last_name
+        - email
+        - password
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+
+    LoginRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
