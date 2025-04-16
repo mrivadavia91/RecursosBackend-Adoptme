@@ -1,4 +1,4 @@
-import express from "express";
+import express from 'express';
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
@@ -79,4 +79,6 @@ app.listen(PORT, () => {
   logger.info(`🚀 Servidor corriendo en http://localhost:${PORT}`);
 });
 
+
+// module.exports = app;
 export default app;

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { generateMockUsers } from "../utils/mocking.js";
-import UserModel from "../models/User.model.js";
-import PetModel from "../models/Pet.model.js";
+import User from "../dao/models/User.js";
+import Pet from "../dao/models/Pet.js";
 
 const router = Router();
 
@@ -28,8 +28,8 @@ router.post("/generateData", async (req, res) => {
     }));
 
     // Insertar en MongoDB
-    await UserModel.insertMany(mockUsers);
-    await PetModel.insertMany(mockPets);
+    await User.insertMany(mockUsers);
+    await Pet.insertMany(mockPets);
 
     res.json({ status: "success", message: `Se generaron ${users} usuarios y ${pets} mascotas.` });
   } catch (error) {
